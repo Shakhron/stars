@@ -22,13 +22,11 @@ class _StarRatingWidgetState extends State<StarRatingWidget> {
           children: [
             for (int i = 1; i <= 5; i++)
               GestureDetector(
-                onTap: () {
+                onTapDown: (details) {
                   setState(() {
-                    if (_rating == i - 0.5) {
-                      _rating = i.toDouble();
-                    } else {
-                      _rating = i - 0.5;
-                    }
+                    double rating =
+                        i.toDouble() + details.localPosition.dx / 50;
+                    _rating = rating.clamp(0.0, 5.0);
                   });
                 },
                 onHorizontalDragUpdate: (details) {
